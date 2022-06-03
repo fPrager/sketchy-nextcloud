@@ -1,7 +1,14 @@
 import Head from 'next/head'
 import { Page } from '@geist-ui/core'
+import ThemeSelect from './ThemeSelect'
 
-function Layout({ children }: { children: React.ReactNode }) {
+type LayoutPropsType = {
+  children: React.ReactNode,
+  currentTheme: string,
+  onSwitchTheme: (theme: string) => void,
+}
+
+function Layout({ children, currentTheme, onSwitchTheme }: LayoutPropsType) {
   return (
     <>
       <Head>
@@ -10,7 +17,12 @@ function Layout({ children }: { children: React.ReactNode }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Page>
-        { children }
+        <Page.Header center style={{ padding: '10px' }}>
+          <ThemeSelect onSelect={onSwitchTheme} defaultValue={currentTheme} />
+        </Page.Header>
+        <Page.Content>
+          { children }
+        </Page.Content>
       </Page>
     </>
   )

@@ -2,13 +2,16 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import { GeistProvider, CssBaseline } from '@geist-ui/core'
+import { useState } from 'react'
 import Layout from '../components/Layout'
+import { DEFAULT_THEME } from '../components/ThemeSelect'
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const [themeType, setThemeType] = useState(DEFAULT_THEME)
   return (
-    <GeistProvider>
+    <GeistProvider themeType={themeType}>
       <CssBaseline />
-      <Layout>
+      <Layout currentTheme={themeType} onSwitchTheme={setThemeType}>
         <Component {...pageProps} />
       </Layout>
     </GeistProvider>

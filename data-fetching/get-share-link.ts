@@ -1,14 +1,11 @@
-import Config from './config.json'
-import getNextcloudClient from './get-nextcloud-client'
+import type NextcloudClient from 'nextcloud-link'
 
-const getShareLink = async (fileName: string) => {
-  const client = getNextcloudClient()
-  const filePath = `${Config.SketchRoot}/${fileName}`
-  const shareLinks = await client.shares.list(filePath)
+const getShareLink = async (client: NextcloudClient, fileUrl: string) => {
+  const shareLinks = await client.shares.list(fileUrl)
   let shareLink = shareLinks.find((link) => !!link.url && !link.expiration)
 
   if (!shareLink) {
-    shareLink = await client.shares.add(filePath, 3)
+    shareLink = await client.shares.add(fileUrl, 3)
   }
 
   return shareLink.url || null

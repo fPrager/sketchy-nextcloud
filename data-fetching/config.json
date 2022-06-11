@@ -1,3 +1,4 @@
 {
-    "SketchRoot": "/Projects/Sketches"
+    "SketchRoot": "/Projects/Sketches",
+    "CacheFileName": "cache.json"
 }

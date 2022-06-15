@@ -1,5 +1,7 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import moment from 'moment'
 import Image from 'next/image'
+import Link from 'next/link'
 import styles from '../styles/SketchCalendar.module.scss'
 import type { Sketch } from '../types/sketch'
 
@@ -10,9 +12,11 @@ type SketchCalendarProps = {
 
 const SketchCalendar = ({ dateFromISO, sketches }: SketchCalendarProps) => {
   const noSketchDay = <div className={`${styles['no-sketch-day']} ${styles.card}`} />
-  const sketchDay = (date:string, url:string) => (
+  const sketchDay = (name:string, url:string) => (
     <div className={`${styles['sketch-day']}  ${styles.card}`}>
-      <Image alt={`sketch_${date}`} src={url} width={99} height={66} />
+      <Link href={`/sketch/${name}`}>
+        <a><Image alt={`sketch_${name}`} src={url} width={99} height={66} /></a>
+      </Link>
     </div>
   )
 
@@ -32,7 +36,7 @@ const SketchCalendar = ({ dateFromISO, sketches }: SketchCalendarProps) => {
     const sketch = dayMappedSketches.get(dateFormat)
     dayComponents.push(
       <div key={dateFormat}>
-        {sketch ? sketchDay(dateFormat, sketch.shareLink) : noSketchDay}
+        {sketch ? sketchDay(sketch.name, sketch.shareLink) : noSketchDay}
       </div>,
     )
   }

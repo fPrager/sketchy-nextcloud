@@ -1,9 +1,14 @@
 .no-sketch-day {
     background-color: transparent;
+    width: 99px;
+    height: 66px;
 }
 
-.sketch-day {
-    background-size: cover;
+.sketch-day{
+    img {
+      width: 99px !important;
+      height: 66px !important;
+    }
 }
 
 .grid {
@@ -16,7 +21,6 @@
 
 .card {
   margin: 1rem;
-  padding: 1.5rem;
   text-align: left;
   color: inherit;
   text-decoration: none;

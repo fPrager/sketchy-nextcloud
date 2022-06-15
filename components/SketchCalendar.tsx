@@ -1,5 +1,6 @@
 import moment from 'moment'
-import styles from '../styles/SketchCalendar.module.css'
+import Image from 'next/image'
+import styles from '../styles/SketchCalendar.module.scss'
 import type { Sketch } from '../types/sketch'
 
 type SketchCalendarProps = {
@@ -9,8 +10,10 @@ type SketchCalendarProps = {
 
 const SketchCalendar = ({ dateFromISO, sketches }: SketchCalendarProps) => {
   const noSketchDay = <div className={`${styles['no-sketch-day']} ${styles.card}`} />
-  const sketchDay = (url:string) => (
-    <div className={`${styles['sketch-day']}  ${styles.card}`} style={{ backgroundImage: `url(${url})` }} />
+  const sketchDay = (date:string, url:string) => (
+    <div className={`${styles['sketch-day']}  ${styles.card}`}>
+      <Image alt={`sketch_${date}`} src={url} width={99} height={66} />
+    </div>
   )
 
   const dayMappedSketches = new Map<string, Sketch>()
@@ -25,9 +28,12 @@ const SketchCalendar = ({ dateFromISO, sketches }: SketchCalendarProps) => {
   const dayComponents = []
   for (let i = 0; i < daysCnt; i += 1) {
     const date = dateFrom.clone().add(i, 'days')
-    const sketch = dayMappedSketches.get(date.format('YYYY_MM_DD'))
+    const dateFormat = date.format('YYYY_MM_DD')
+    const sketch = dayMappedSketches.get(dateFormat)
     dayComponents.push(
-      sketch ? sketchDay(sketch.shareLink) : noSketchDay,
+      <div key={dateFormat}>
+        {sketch ? sketchDay(dateFormat, sketch.shareLink) : noSketchDay}
+      </div>,
     )
   }
   return (

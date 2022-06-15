@@ -8,7 +8,7 @@ const getShareLink = async (client: NextcloudClient, fileUrl: string) => {
     shareLink = await client.shares.add(fileUrl, 3)
   }
 
-  return shareLink.url || null
+  return `${shareLink.url}/preview` || null
 }
 
 export default getShareLink

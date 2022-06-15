@@ -1,7 +1,6 @@
 import type { NextPage } from 'next'
 import SketchCalendar from '../components/SketchCalendar'
 import getSketches from '../data-fetching/get-sketches'
-import styles from '../styles/Home.module.css'
 import { Sketch } from '../types/sketch'
 
 type HomeProps = {

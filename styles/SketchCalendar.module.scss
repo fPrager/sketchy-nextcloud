@@ -1,23 +1,31 @@
 .no-sketch-day {
-    background-color: transparent;
-    width: 99px;
-    height: 66px;
+  background-color: transparent;
+  width: 99px;
+  height: 66px;
 }
 
-.sketch-day{
-    img {
-      width: 99px !important;
-      height: 66px !important;
-    }
+.sketch-day {
+  img {
+    width: 99px !important;
+    height: 66px !important;
+  }
+
+  &.card:hover,
+  &.card:focus,
+  &.card:active {
+    color: black;
+    border-color: black;
+    cursor: pointer;
+  }
 }
 
 .grid {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    max-width: 800px;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 800px;
+}
 
 .card {
   margin: 1rem;
@@ -28,13 +36,7 @@
   border-radius: 10px;
   transition: color 0.15s ease, border-color 0.15s ease;
   max-width: 300px;
-}
-
-.card:hover,
-.card:focus,
-.card:active {
-  color: #0070f3;
-  border-color: #0070f3;
+  overflow: hidden;
 }
 
 @media (max-width: 600px) {

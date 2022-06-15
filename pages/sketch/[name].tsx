@@ -1,6 +1,7 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
-import React, { ReactNode } from 'react'
+import { ReactNode } from 'react'
+import { useTheme } from '@geist-ui/core'
 import getSketch from '../../data-fetching/get-sketch'
 import getSketches from '../../data-fetching/get-sketches'
 import styles from '../../styles/Sketch.module.css'
@@ -12,6 +13,7 @@ type SketchViewProps = {
 
 const SketchView = ({ sketch }: SketchViewProps) => {
   const router = useRouter()
+  const theme = useTheme()
 
   const wrap = (component: ReactNode) => (
     <div className={styles.container} onClick={() => router.back()} role="none">
@@ -23,7 +25,7 @@ const SketchView = ({ sketch }: SketchViewProps) => {
   }
 
   return wrap(
-    <div className={styles.container}>
+    <div className={`${styles.container} ${theme.type}`}>
       <img alt={`sketch from ${sketch.name}`} src={sketch.shareLink} />
     </div>,
   )

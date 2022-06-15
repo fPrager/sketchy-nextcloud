@@ -1,4 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
+import { useTheme } from '@geist-ui/core'
 import moment from 'moment'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -11,9 +12,10 @@ type SketchCalendarProps = {
 }
 
 const SketchCalendar = ({ dateFromISO, sketches }: SketchCalendarProps) => {
+  const theme = useTheme()
   const noSketchDay = <div className={`${styles['no-sketch-day']} ${styles.card}`} />
   const sketchDay = (name:string, url:string) => (
-    <div className={`${styles['sketch-day']}  ${styles.card}`}>
+    <div className={`${styles['sketch-day']} ${styles.card} ${theme.type}`}>
       <Link href={`/sketch/${name}`}>
         <a><Image alt={`sketch_${name}`} src={url} width={99} height={66} /></a>
       </Link>

@@ -14,3 +14,7 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.dark img {
+  filter: invert(1)
+}

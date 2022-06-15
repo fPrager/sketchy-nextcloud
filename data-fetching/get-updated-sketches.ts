@@ -30,7 +30,7 @@ const getSketch = async (client: NextcloudClient, fileName: string): Promise<Ske
 
   return {
     name,
-    createdAt,
+    createdAt: name,
     shareLink,
   }
 }

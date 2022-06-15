@@ -1,7 +1,5 @@
-import { Moment } from 'moment'
-
 export type Sketch = {
   name: string,
-  createdAt: Moment,
+  createdAt: string,
   shareLink: string,
 }

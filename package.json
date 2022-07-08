@@ -11,6 +11,8 @@
   "dependencies": {
     "@geist-ui/core": "^2.3.8",
     "@geist-ui/icons": "^1.0.2",
+    "@mantine/core": "^4.2.12",
+    "@mantine/hooks": "^4.2.12",
     "moment": "^2.29.3",
     "next": "12.1.6",
     "nextcloud-link": "^1.2.9",

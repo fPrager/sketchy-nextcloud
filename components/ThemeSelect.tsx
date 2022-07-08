@@ -1,7 +1,25 @@
-import { Grid, Toggle } from '@geist-ui/core'
+import { Grid, Themes, Toggle } from '@geist-ui/core'
 import { Sun } from '@geist-ui/icons'
 
-export const DEFAULT_THEME = 'light'
+export const DEFAULT_THEME = 'my-light'
+
+export const myLightTheme = Themes.createFromLight({
+  type: 'my-light',
+  font: {
+    mono: 'Outbound',
+    prism: 'Outbound',
+    sans: 'Outbound',
+  },
+})
+
+export const myDarkTheme = Themes.createFromDark({
+  type: 'my-dark',
+  font: {
+    mono: 'Outbound',
+    prism: 'Outbound',
+    sans: 'Outbound',
+  },
+})
 
 type ThemeSelectPropsType = {
   onSelect: (value: string) => void,
@@ -13,8 +31,8 @@ const ThemeSelect = ({ onSelect, defaultValue }: ThemeSelectPropsType) => (
     <Grid alignItems="flex-start" alignContent="center" justify="center" style={{ height: '100%' }}>
       <Toggle
         type="secondary"
-        onChange={((event) => onSelect(event.target.checked ? 'light' : 'dark'))}
-        initialChecked={defaultValue === 'light'}
+        onChange={((event) => onSelect(event.target.checked ? 'my-light' : 'my-dark'))}
+        initialChecked={defaultValue === 'my-light'}
         style={{ height: '100%' }}
       />
     </Grid>

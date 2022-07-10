@@ -1,10 +1,16 @@
 import { ScrollArea } from '@mantine/core'
+import { useClipboard } from '@mantine/hooks'
 import moment from 'moment'
-import { useMemo } from 'react'
+import { useRouter } from 'next/router'
+import {
+  ForwardedRef,
+  useEffect, useMemo, useRef,
+} from 'react'
 import styles from '../styles/SketchCalendar.module.scss'
 import type { Sketch } from '../types/sketch'
 import chunk from '../utils/chunk'
 import FramedSketch from './FramedSketch'
+import MonthNameLink from './MonthNameLink'
 
 type SketchyMonth = {
   name: string,
@@ -70,6 +76,30 @@ const getSketchyYears = (sketches: Sketch[], dateFromISO: string): SketchyYear[]
 }
 
 const SketchCalendar = ({ dateFromISO, sketches }: SketchCalendarProps) => {
+  const router = useRouter()
+  const viewport = useRef<HTMLDivElement>()
+  const clipboard = useClipboard()
+
+  const scrollToMonth = (sectionId: string) => {
+    const element = document.getElementById(sectionId)
+    if (!element || !viewport.current) return
+    viewport.current.scrollTo({ left: element.offsetLeft, behavior: 'smooth' })
+  }
+
+  const shareMonth = (sectionId: string) => {
+    const shareLink = `${window.location.origin}${router.pathname}?month=${sectionId}`
+    router.replace(shareLink, shareLink)
+    clipboard.copy(shareLink)
+  }
+
+  useEffect(() => {
+    const params = (new URL(`${window.location}`)).searchParams
+    const requestedMonth = params.get('month')
+    if (requestedMonth) {
+      scrollToMonth(requestedMonth)
+    }
+  }, [])
+
   const noSketchDay = <div className={`${styles['no-sketch-day']} ${styles.card}`} />
   const sketchDay = (name:string, url:string) => (
     <FramedSketch url={url} name={name} />
@@ -92,13 +122,21 @@ const SketchCalendar = ({ dateFromISO, sketches }: SketchCalendarProps) => {
         </div>
       ))
 
+      const sectionId = `${year.name}-${month.name}`
+      const handleOnClick = () => {
+        scrollToMonth(sectionId)
+        shareMonth(sectionId)
+      }
+
       return (
-        <div className={styles.month}>
-          <div className={styles.title}>{ month.name }</div>
+        <section className={styles.month} id={sectionId}>
+          <div className={styles.title}>
+            <MonthNameLink sectionId={sectionId} name={month.name} onClick={handleOnClick} />
+          </div>
           <div className={styles.weeks}>
             { weeksComponents }
           </div>
-        </div>
+        </section>
       )
     })
 
@@ -114,7 +152,10 @@ const SketchCalendar = ({ dateFromISO, sketches }: SketchCalendarProps) => {
 
   return (
     <div className={styles.calendar}>
-      <ScrollArea className={styles.scroll}>
+      <ScrollArea
+        className={styles.scroll}
+        viewportRef={viewport as ForwardedRef<HTMLDivElement> | undefined}
+      >
         <div className={styles.grid}>
           { yearComponents }
         </div>

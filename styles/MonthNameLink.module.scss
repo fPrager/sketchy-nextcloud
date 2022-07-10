@@ -1,0 +1,12 @@
+.name {
+    cursor: pointer;
+    width: fit-content;
+}
+
+.name:hover {
+    color: black;
+}
+
+.name:hover::after {
+    content: ' #';
+}

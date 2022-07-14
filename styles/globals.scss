@@ -8,7 +8,8 @@ body {
   font-family: Outbound, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 
-  height: 100vh;
+  height: 100%;
+  overflow: hidden;
 }
 
 a {
@@ -33,4 +34,8 @@ section {
   margin: 0 !important;
   width: 100% !important;
   padding: 0 !important;
+}
+
+#__next {
+  height: 100%;
 }

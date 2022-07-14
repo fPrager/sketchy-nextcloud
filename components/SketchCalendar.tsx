@@ -100,9 +100,11 @@ const SketchCalendar = ({ dateFromISO, sketches }: SketchCalendarProps) => {
     }
   }, [])
 
-  const noSketchDay = <div className={`${styles['no-sketch-day']} ${styles.card}`} />
+  const noSketchDay = <div className={`${styles.missing} ${styles.card}`} />
   const sketchDay = (name:string, url:string) => (
-    <FramedSketch url={url} name={name} />
+    <div className={styles.card}>
+      <FramedSketch url={url} name={name} />
+    </div>
   )
 
   const sketchyYears: SketchyYear[] = useMemo(

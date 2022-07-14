@@ -102,7 +102,7 @@ const SketchCalendar = ({ dateFromISO, sketches }: SketchCalendarProps) => {
 
   const noSketchDay = <div className={`${styles.missing} ${styles.card}`} />
   const sketchDay = (name:string, url:string) => (
-    <div className={styles.card}>
+    <div className={styles.card} key={name}>
       <FramedSketch url={url} name={name} />
     </div>
   )
@@ -114,12 +114,16 @@ const SketchCalendar = ({ dateFromISO, sketches }: SketchCalendarProps) => {
 
   const yearComponents = sketchyYears.map((year) => {
     const monthComponents = year.months.map((month) => {
-      const dayComponents = month.sketches.map((sketch) => (
-        sketch ? sketchDay(sketch.name, sketch.shareLink) : noSketchDay
+      const dayComponents = month.sketches.map((sketch, index) => (
+        sketch
+          ? sketchDay(sketch.name, sketch.shareLink)
+          // eslint-disable-next-line react/no-array-index-key
+          : <div key={`missing-${index}`}>{ noSketchDay }</div>
       ))
 
-      const weeksComponents = chunk(dayComponents, 7).map((week) => (
-        <div className={styles.week}>
+      const weeksComponents = chunk(dayComponents, 7).map((week, index) => (
+        // eslint-disable-next-line react/no-array-index-key
+        <div className={styles.week} key={`week-${index}`}>
           { week }
         </div>
       ))
@@ -131,7 +135,7 @@ const SketchCalendar = ({ dateFromISO, sketches }: SketchCalendarProps) => {
       }
 
       return (
-        <section className={styles.month} id={sectionId}>
+        <section className={styles.month} id={sectionId} key={sectionId}>
           <div className={styles.title}>
             <MonthNameLink sectionId={sectionId} name={month.name} onClick={handleOnClick} />
           </div>
@@ -143,7 +147,7 @@ const SketchCalendar = ({ dateFromISO, sketches }: SketchCalendarProps) => {
     })
 
     return (
-      <div className={styles.year}>
+      <div className={styles.year} key={year.name}>
         <div className={styles.title}>{year.name}</div>
         <div className={styles.months}>
           { monthComponents }

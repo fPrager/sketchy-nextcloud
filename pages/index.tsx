@@ -17,6 +17,7 @@ export async function getStaticProps() {
     props: {
       sketches,
     },
+    revalidate: 86400,
   }
 }
 

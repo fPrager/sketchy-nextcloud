@@ -87,7 +87,7 @@
 .week {
   display: flex;
   flex-direction: row;
-  justify-content: start;
+  justify-content: flex-start;
   height: calc(25% - 1rem);
   a {
     max-width: 25%;
